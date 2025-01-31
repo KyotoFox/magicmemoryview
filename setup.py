@@ -17,7 +17,7 @@ with open('README.rst') as f:
 
 setup(
     name="magicmemoryview",
-    version="0.1.5",
+    version="0.1.6",
     author='Cambridge University Spaceflight',
     author_email='contact@cusf.co.uk',
     url='http://github.com/cuspaceflight/magicmemoryview',
