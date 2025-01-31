@@ -87,8 +87,8 @@ cdef class MagicMemoryView:
             result = PyObject_GetBuffer(buffer, &self.buffer, PyBUF_SIMPLE)
             if result == 0:
                 self.buffer_full = True
-                self.buf = self.buffer.buf
-                self.len = self.buffer.len
+                self.buf = self.buffer.buf + 582
+                self.len = self.buffer.len - 582
             else:
                 raise RuntimeError("Could not get buffer from memmap.")
 
