@@ -50,7 +50,7 @@ cdef class MagicMemoryView:
         PyMem_Free(self.shape)
         PyMem_Free(self.strides)
 
-    def __init__(self, object buffer, object shape, object format):
+    def __init__(self, object buffer, object shape, object format, int offset):
         cdef Py_ssize_t acc, expect_length
         cdef int result
 
@@ -87,14 +87,14 @@ cdef class MagicMemoryView:
             result = PyObject_GetBuffer(buffer, &self.buffer, PyBUF_SIMPLE)
             if result == 0:
                 self.buffer_full = True
-                self.buf = self.buffer.buf + 582
-                self.len = self.buffer.len - 582
+                self.buf = self.buffer.buf + offset
+                self.len = self.buffer.len - offset
             else:
                 raise RuntimeError("Could not get buffer from memmap.")
 
         if self.len != expect_length:
-            raise ValueError("Buffer is wrong size: (got {0}, {1})"
-                                 .format(self.len, expect_length))
+            raise ValueError("Buffer is wrong size: (got {0}, expected {1}, offset {2})"
+                                 .format(self.len, expect_length, offset))
 
     def __getbuffer__(object self, Py_buffer* view, int flags):
         view.buf = self.buf
