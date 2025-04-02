@@ -50,7 +50,7 @@ cdef class MagicMemoryView:
         PyMem_Free(self.shape)
         PyMem_Free(self.strides)
 
-    def __init__(self, object buffer, object shape, object format, int offset):
+    def __init__(self, object buffer, object shape, object format, int offset=0):
         cdef Py_ssize_t acc, expect_length
         cdef int result
 
